@@ -1,8 +1,6 @@
 import { uploadImageDetails } from "../../modules/functions";
 import connectDB from "../../database/dbConfig";
 import initMiddleWare from "../../helperFunctions/middleware";
-import path from 'path';
-import { upload } from "../../helperFunctions/imageUploader";
 import multer from 'multer';
 import { v2 as cloudinary } from 'cloudinary';
 import { CloudinaryStorage } from 'multer-storage-cloudinary';

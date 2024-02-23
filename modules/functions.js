@@ -1,11 +1,7 @@
-import { cloudinaryData } from "../config";
 import { emailFormatChecker } from "../helperFunctions/checker";
 import { emailModel } from "../models/emailModel";
 import { imageModel } from "../models/imageModel";
 import { textModel } from "../models/textModel";
-import cloudinary from 'cloudinary';
-import multer from 'multer';
-import { v2 as cloudinaryV2 } from 'cloudinary';
 
 
 export const config = {
