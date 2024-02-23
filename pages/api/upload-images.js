@@ -6,15 +6,25 @@ import { upload } from "../../helperFunctions/imageUploader";
 import multer from 'multer';
 import { v2 as cloudinary } from 'cloudinary';
 import { CloudinaryStorage } from 'multer-storage-cloudinary';
+// import cloudinary from 'cloudinary';
+import { cloudinaryData } from "../../config";
 
 await connectDB();
 
-// const upload = uploadImages.single("file")
 export const config = {
   api: {
     bodyParser: false
   }
 };
+
+cloudinary.config({
+  cloud_name: cloudinaryData.cloudName,
+  api_key: cloudinaryData.apiKey,
+  api_secret: cloudinaryData.apiSecret,
+  secure: true,
+});
+
+
 
 const handler = async (req, res) => {
   try {
@@ -23,14 +33,15 @@ const handler = async (req, res) => {
       const storage = new CloudinaryStorage({
         cloudinary: cloudinary,
         params: {
-          folder: 'your-folder-name', // Optional - folder to upload in Cloudinary
+          folder: 'assignment',
           allowed_formats: ['jpg', 'jpeg', 'png'],
-          // Add any other Cloudinary parameters you need
+          upload_preset: "nszfgg5g",
         },
       });
-
-      const parser = multer({ storage: storage }).single('image');
-       parser(req, res, async (err) => {
+      
+      const upload = multer({ storage: storage, limits: { fileSize: 10 * 1024 * 1024 }, }).single('image');
+      
+      upload(req, res, async (err) => {
         if (err) {
           return res.status(400).json({ error: 'Failed to upload image' });
         }
@@ -39,8 +50,7 @@ const handler = async (req, res) => {
         if (!file) {
           return res.status(400).json({ error: 'No file uploaded' });
         }
-
-        // Return the public URL of the uploaded image
+        
         const imageUrl = file.path;
         await uploadImageDetails(req, res, imageUrl);
       });

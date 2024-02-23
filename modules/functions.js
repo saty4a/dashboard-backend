@@ -7,17 +7,6 @@ import cloudinary from 'cloudinary';
 import multer from 'multer';
 import { v2 as cloudinaryV2 } from 'cloudinary';
 
-// const storage = multer.memoryStorage();
-// const upload = multer({ storage: storage });
-
-// const upload = multer({ dest: 'uploads/' });
-
-cloudinary.config({
-  cloud_name: cloudinaryData.cloudName,
-  api_key: cloudinaryData.apiKey,
-  api_secret: cloudinaryData.apiSecret,
-  secure: true,
-});
 
 export const config = {
   api: {
